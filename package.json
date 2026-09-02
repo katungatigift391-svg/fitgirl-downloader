@@ -1,0 +1,26 @@
+{
+  "name": "fitgirl-downloader",
+  "version": "1.0.0",
+  "description": "Standalone torrent downloader and selective component manager for FitGirl Repacks",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "fitgirl",
+    "downloader",
+    "torrent",
+    "webtorrent",
+    "repack"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.20.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "webtorrent": "^3.0.21",
+    "ws": "^8.21.3"
+  }
+}

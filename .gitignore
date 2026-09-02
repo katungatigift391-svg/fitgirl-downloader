@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-error.log
+
+# Persistent Runtime Data (User-Specific)
+data/downloads.json
+data/settings.json
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & Temp
+*.log
+logs/
+.temp/

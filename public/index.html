@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitGirl Repack Downloader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Header -->
+    <header class="app-header">
+        <div class="logo-area">
+            <div class="logo-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                    <polyline points="2 17 12 22 22 17"></polyline>
+                    <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+            </div>
+            <div class="logo-text">
+                <span class="brand-title">FITGIRL</span>
+                <span class="brand-sub">DOWNLOADER</span>
+            </div>
+        </div>
+
+        <nav class="nav-tabs">
+            <button class="nav-btn active" data-tab="catalog">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                <span>Catalog</span>
+            </button>
+            <button class="nav-btn" data-tab="downloads">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>Downloads</span>
+                <span class="badge" id="dlBadge">0</span>
+            </button>
+            <button class="nav-btn" data-tab="settings">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+
+        <div class="header-stats">
+            <div class="stat-pill" title="Global Download Speed">
+                <span class="stat-dot green"></span>
+                <span class="stat-label">DL:</span>
+                <span class="stat-val font-mono" id="globalDlSpeed">0.0 KB/s</span>
+            </div>
+            <div class="stat-pill" title="Global Upload Speed">
+                <span class="stat-dot blue"></span>
+                <span class="stat-label">UP:</span>
+                <span class="stat-val font-mono" id="globalUpSpeed">0.0 KB/s</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-content">
+        <!-- Catalog Tab -->
+        <section class="tab-panel active" id="tab-catalog">
+            <div class="catalog-controls">
+                <div class="search-box">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="searchInput" placeholder="Search FitGirl games by title (e.g. Cyberpunk, Elden Ring, Doom)...">
+                    <button class="clear-search" id="clearSearchBtn" style="display:none;">&times;</button>
+                </div>
+                <div class="catalog-filters">
+                    <button class="refresh-btn" id="refreshCatalogBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                        <span>Refresh</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="catalog-grid" id="catalogGrid">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Fetching latest releases from FitGirl...</p>
+                </div>
+            </div>
+
+            <div class="pagination-area" id="paginationArea">
+                <button class="page-btn" id="prevPageBtn" disabled>&larr; Previous</button>
+                <span class="page-info" id="pageInfo">Page 1</span>
+                <button class="page-btn" id="nextPageBtn">Next &rarr;</button>
+            </div>
+        </section>
+
+        <!-- Downloads Tab -->
+        <section class="tab-panel" id="tab-downloads">
+            <div class="section-header">
+                <h2>Active Downloads</h2>
+                <span class="section-desc">Manage ongoing torrent downloads and monitor real-time bandwidth.</span>
+            </div>
+
+            <div class="downloads-list" id="downloadsList">
+                <div class="empty-state">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    <h3>No Active Downloads</h3>
+                    <p>Go to the Catalog and click "Configure & Download" on any game to start downloading.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Tab -->
+        <section class="tab-panel" id="tab-settings">
+            <div class="section-header">
+                <h2>Downloader Settings</h2>
+                <span class="section-desc">Configure storage directories and selective component defaults.</span>
+            </div>
+
+            <div class="settings-grid">
+                <!-- Section 1: Storage -->
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg></div>
+                        <div>
+                            <h3>Storage Location</h3>
+                            <p>Choose where downloaded repack archives are saved</p>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <label>Downloads Directory</label>
+                        <p class="setting-hint">Where downloaded repack archives (.bin & setup.exe) are stored.</p>
+                        <input type="text" id="settingDownloadPath" class="input-text" placeholder="C:\Games\Downloads">
+                    </div>
+                </div>
+
+                <!-- Section 2: Selective Downloads & Defaults -->
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <div class="card-icon purple"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+                        <div>
+                            <h3>Selective Component Defaults</h3>
+                            <p>Control initial file selection for selective FitGirl repacks</p>
+                        </div>
+                    </div>
+
+                    <div class="setting-group checkbox-group">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="settingDefaultOptional">
+                            <span class="checkmark"></span>
+                            <span class="cb-text">
+                                <strong>Include Optional Bonus Content by Default</strong>
+                                <small>If unchecked, optional bonus soundtracks, high-res videos, and extra language packs will be deselected by default to save bandwidth and disk space.</small>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-save-bar">
+                <button class="primary-btn" id="saveSettingsBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                    <span>Save Settings</span>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Game Details Modal -->
+    <div class="modal-overlay" id="detailsModal">
+        <div class="modal-card">
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Pre-Download Component Picker Modal -->
+    <div class="modal-overlay" id="downloadOptionsModal">
+        <div class="modal-card component-modal-card">
+            <button class="modal-close" id="closeDownloadOptionsBtn">&times;</button>
+            <div class="modal-body" id="downloadOptionsBody">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Resolving torrent components and selective files...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
