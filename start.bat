@@ -7,9 +7,19 @@ echo             FITGIRL REPACK DOWNLOADER
 echo ===================================================
 echo.
 
-where node >nul 2>nul
+rem Prefer bundled Node runtime in bin\ if present
+if exist "%~dp0bin\node.exe" (
+    set "PATH=%~dp0bin;%PATH%"
+    set "NODE_CMD=%~dp0bin\node.exe"
+    set "NPM_CMD=%~dp0bin\npm.cmd"
+) else (
+    set "NODE_CMD=node"
+    set "NPM_CMD=npm"
+)
+
+"%NODE_CMD%" -v >nul 2>nul
 if %errorlevel% neq 0 (
-    echo [ERROR] Node.js is not installed or not in PATH!
+    echo [ERROR] Node.js is not found in bin\ or system PATH!
     echo Please install Node.js from https://nodejs.org/
     pause
     exit /b 1
@@ -17,7 +27,7 @@ if %errorlevel% neq 0 (
 
 if not exist "node_modules" (
     echo [INFO] Installing required dependencies...
-    call npm install
+    call "%NPM_CMD%" install
     if %errorlevel% neq 0 (
         echo [ERROR] npm install failed.
         pause
@@ -27,5 +37,6 @@ if not exist "node_modules" (
 
 echo [INFO] Starting Downloader Server on http://localhost:3333 ...
 start "" http://localhost:3333
-node server.js
+"%NODE_CMD%" server.js
 pause
+
